@@ -29,19 +29,13 @@ Template.body.events({
 	'submit .new-task'(event) {
 		// Prevent default browser form submit
 		event.preventDefault()
-		console.log(event)
 
 		// Get value from form element
 		const target = event.target
 		const text = target.text.value
 
 		// Insert a task into the collection
-		Tasks.insert({
-			text,
-			createdAt: new Date(), // current time
-			owner: Meteor.userId(),
-			username: Meteor.user().username,
-		})
+		Meteor.call('tasks.insert', text)
 
 		// Clear form
 		target.text.value = ''
